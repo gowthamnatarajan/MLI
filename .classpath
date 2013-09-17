@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/scala/ml/opt"/>
+	<classpathentry kind="src" path="src/main/scala/util"/>
+	<classpathentry kind="src" path="src/test/scala/impl"/>
+	<classpathentry excluding="impl/|interface/|ml/opt/|util/|impl/|interface/" kind="src" path="src/main/scala"/>
+	<classpathentry excluding="scala/impl/" kind="src" path="src/test"/>
+	<classpathentry kind="src" path="src/main/scala/impl"/>
+	<classpathentry kind="src" path="src/main/scala/interface"/>
+	<classpathentry kind="lib" path="lib/jblas-1.2.3.jar"/>
+	<classpathentry kind="lib" path="sbt/sbt-launch-0.11.3-2.jar"/>
+	<classpathentry kind="lib" path="target/scala-2.9.3/mli_2.9.3-1.0.jar" sourcepath="src"/>
+	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
