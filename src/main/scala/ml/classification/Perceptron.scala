@@ -37,41 +37,26 @@ object PerceptronAlgorithm extends Algorithm[PerceptronParameters] {
 
   def defaultParameters() = PerceptronParameters()
     
+  def evaluate(z: Double): Double = {
+      if(z < 0) {
+        -1.0
+      }
+      else {
+        1.0
+      }
+  }
+  
   def train(data: MLTable, params: PerceptronParameters): PerceptronModel = {
       
-      val d = data.numCols - 1
-      
+    val d = data.numCols - 1
+    
     def gradient(row: MLRow, w: MLRow): MLRow = {
       val x = MLVector(row.slice(1,row.length))
       val y = row(0).toNumber
-      var pred = Array(0)
-      for(i <- w.toMLRows) {
-        pred :+ (row dot i)
-      }
-      val predVal = pred
-      val maxIndex = predVal.indexOf(predVal.max)
-      if(maxIndex == y) {
-        (null, null)
-      }
-      else {
-        var j = 0
-        var classWeight: MLRow = null
-        var predictWeight: MLRow = null
-        for(i <- w.toMLRows) {
-          j = j + 1
-          if(j == y) {
-            classWeight = i
-          }
-          if(j == maxIndex) {
-            predictWeight = i
-          }
-        }
-        (classWeight, predictWeight)
-      }
+      x times (evaluate(x dot w) - y)
     }
       val startTime = System.currentTimeMillis
-      val optParams = opt.StochasticGradientDescentParameters(wInit = MLMatrix.zeros(params.numClass, d), grad = gradient, 
-          learningRate = params.learningRate)
+      val optParams = opt.StochasticGradientDescentParameters(wInit = MLVector.zeros(d), grad = gradient, learningRate = params.learningRate)
       val weights = opt.StochasticGradientDescent(data, optParams)
       val trainTime =  System.currentTimeMillis - startTime
       new PerceptronModel(data, params, trainTime, weights)
